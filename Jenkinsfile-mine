@@ -1,0 +1,31 @@
+pipeline {
+  agent {
+    node {
+      label 'my-test-proj'
+    }
+  }
+
+    parameters {
+        string(name:'TAG_NAME',defaultValue: '',description:'')
+    }
+
+    environment {
+        DOCKER_CREDENTIAL_ID = 'dockerhub-id'
+        GITHUB_CREDENTIAL_ID = 'github-id'
+        KUBECONFIG_CREDENTIAL_ID = 'demo-kubeconfig'
+        REGISTRY = 'docker.io'
+        DOCKERHUB_NAMESPACE = 'zuvakin2017'
+        GITHUB_ACCOUNT = 'godzilla-s'
+        APP_NAME = 'devops-maven-sample'
+    }
+
+    stages {
+        stage ('my test') {
+            steps {
+                container ('centos:7') {
+                    echo "hello world"
+                }
+            }
+        }
+    }
+}
